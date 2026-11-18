@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile - ClariBill Care{% endblock %}
+{% block content %}
+<div class="card" style="max-width:640px">
+    <h1>Edit profile</h1>
+    <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="actions">
+            <button type="submit" class="btn">Save changes</button>
+            <a class="btn secondary" href="{% url 'profile' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
