@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Staff Dashboard - ClariBill Care{% endblock %}
+{% block content %}
+<h1>Billing Staff Dashboard</h1>
+<p class="muted">Welcome, {{ user.first_name|default:user.username }}. Here is an overview of the accounts in the system.</p>
+
+<div class="tiles">
+    <a class="tile" href="{% url 'profile' %}"><strong>My Profile</strong>Keep your contact details and profile photo up to date.</a>
+</div>
+
+
+<div class="grid">
+    <div class="stat"><div class="num">{{ patient_count }}</div><div class="label">Patient accounts</div></div>
+    <div class="stat"><div class="num">{{ staff_count }}</div><div class="label">Billing staff accounts</div></div>
+</div>
+
+<div class="card">
+    <h2>Recently registered patients</h2>
+    {% if recent_patients %}
+    <table class="simple">
+        <thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Registered</th></tr></thead>
+        <tbody>
+        {% for p in recent_patients %}
+            <tr><td>{{ p.get_full_name|default:"-" }}</td><td>{{ p.username }}</td><td>{{ p.email }}</td><td>{{ p.date_joined|date:"M d, Y" }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="muted">No patients have registered yet.</p>
+    {% endif %}
+</div>
+
+{% if user.is_staff %}
+<div class="actions"><a class="btn secondary" href="{% url 'admin:index' %}">Manage accounts in the admin site</a></div>
+{% endif %}
+{% endblock %}

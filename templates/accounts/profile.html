@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}My Profile - ClariBill Care{% endblock %}
+{% block content %}
+<h1>My profile</h1>
+<div class="card">
+    <div class="profile-head">
+        {% include "accounts/_avatar.html" %}
+        <div>
+            <h2>{{ user.get_full_name|default:user.username }}</h2>
+            <span class="badge">{{ user.get_role_display }}</span>
+        </div>
+    </div>
+    <dl class="facts">
+        <dt>Username</dt><dd>{{ user.username }}</dd>
+        <dt>First name</dt><dd>{{ user.first_name|default:"-" }}</dd>
+        <dt>Last name</dt><dd>{{ user.last_name|default:"-" }}</dd>
+        <dt>Email</dt><dd>{{ user.email }}</dd>
+        <dt>Contact number</dt><dd>{{ user.contact_number|default:"-" }}</dd>
+        <dt>Member since</dt><dd>{{ user.date_joined|date:"F d, Y" }}</dd>
+        <dt>Last login</dt><dd>{{ user.last_login|date:"M d, Y h:i A"|default:"-" }}</dd>
+    </dl>
+    <div class="actions"><a class="btn" href="{% url 'profile_edit' %}">Edit profile</a></div>
+</div>
+{% endblock %}

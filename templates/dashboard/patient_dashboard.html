@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Patient Dashboard - ClariBill Care{% endblock %}
+{% block content %}
+<h1>Patient Dashboard</h1>
+<p class="muted">Welcome, {{ user.first_name|default:user.username }}. This is your personal space in ClariBill Care.</p>
+
+<div class="tiles">
+    <a class="tile" href="{% url 'profile' %}"><strong>My Profile</strong>Update your contact details and profile photo.</a>
+</div>
+
+
+<div class="card">
+    <h2>Your account</h2>
+    <dl class="facts">
+        <dt>Name</dt><dd>{{ user.get_full_name|default:"-" }}</dd>
+        <dt>Username</dt><dd>{{ user.username }}</dd>
+        <dt>Email</dt><dd>{{ user.email }}</dd>
+        <dt>Role</dt><dd><span class="badge">{{ user.get_role_display }}</span></dd>
+        <dt>Member since</dt><dd>{{ user.date_joined|date:"F d, Y" }}</dd>
+    </dl>
+</div>
+{% endblock %}

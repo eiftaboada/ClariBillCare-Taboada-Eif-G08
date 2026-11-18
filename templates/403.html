@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Access denied - ClariBill Care{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>You can't open this page</h1>
+    <p>Your account role does not have access to this page.</p>
+    <p><a class="btn" href="{% url 'dashboard' %}">Back to my dashboard</a></p>
+</div>
+{% endblock %}

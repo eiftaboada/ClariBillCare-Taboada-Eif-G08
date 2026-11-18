@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Register - ClariBill Care{% endblock %}
+{% block content %}
+<div class="card auth">
+    <h2>Create your account</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Register</button>
+    </form>
+</div>
+{% endblock %}

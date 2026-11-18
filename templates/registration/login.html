@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Log in - ClariBill Care{% endblock %}
+{% block content %}
+<div class="card auth">
+    <h2>Log in to your account</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn">Log in</button>
+    </form>
+    <p class="hint">No account yet? <a href="{% url 'register' %}">Register here</a></p>
+</div>
+{% endblock %}
