@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}ClariBill Care{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/claribill.css' %}">
+</head>
+<body>
+
+<nav class="topbar">
+    <a class="brand" href="{% url 'home' %}">ClariBill Care</a>
+    {% if user.is_authenticated %}
+        {% if user.is_billing_staff %}
+            <a class="link" href="{% url 'staff_dashboard' %}">Staff Dashboard</a>
+        {% else %}
+            <a class="link" href="{% url 'patient_dashboard' %}">Patient Dashboard</a>
+        {% endif %}
+    {% endif %}
+    <span class="spacer"></span>
+    {% if user.is_authenticated %}
+        <a class="link" href="{% url 'profile' %}">My Profile</a>
+        <span class="who">Signed in as {{ user.username }}</span>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+        </form>
+    {% else %}
+        <a class="link" href="{% url 'login' %}">Log in</a>
+        <a class="link" href="{% url 'register' %}">Register</a>
+    {% endif %}
+</nav>
+
+<main>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}<li class="{{ message.tags }}">{{ message }}</li>{% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer>ClariBill Care &middot; Clear hospital billing for better patient understanding</footer>
+
+</body>
+</html>
